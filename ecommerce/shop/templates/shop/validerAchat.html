@@ -1,0 +1,139 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid" style="margin-top:30px;" >
+    <div class="row">
+        <h2 class="text-center">Votre liste de produit</h2>
+
+        <div class="col-md-12">
+            <ul id="item-list" class="list-group table-striped-columns">
+      
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-5 bg-secondary-subtle">
+        <div class="col-md-12">
+            <form class="row g-3 needs-validation " novalidate method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="items" name="items">
+                <div class="col-md-4">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" name="nom" id="nom" placeholder="Balekamen" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="prenom" class="form-label">Prenom</label>
+                    <input type="text" class="form-control" name="prenom" id="prenom" placeholder="landry" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="email" class="form-control" name="email" id="email"
+                            aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="address" class="form-label">Address</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" class="form-control" name="address" id="address"
+                            aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="ville" class="form-label">Vile</label>
+                    <input type="text" class="form-control" id="ville" name="ville" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid city.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="pays" class="form-label">Pays</label>
+                    <select name="pays" class="form-select" id="pays" required>
+                        <option selected >Cameroun</option>
+                        <option>Senegale</option>
+                        <option>Algerie</option>
+                        <option>Nigeria</option>
+                        <option>Egypte</option>
+                        <option>Ethiopie</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a valid state.
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="zipcode" class="form-label">Zip</label>
+                    <input name="zipcode" type="text" class="form-control" id="zipcode " required>
+                    <div class="invalid-feedback">
+                        Please provide a valid zip.
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="total" class="form-label fw-bold text-danger">Total a payer</label>
+                    <input readonly id="total" name="total" type="text" class="form-control fw-bold bg-dark text-warning" >
+                    <div class="invalid-feedback">
+                        Please provide a valid zip.
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <button class="btn btn-success " type="submit">Commander</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+    if (localStorage.getItem("panier") == null) {
+        var panier = {}
+    }
+    else {
+        panier = JSON.parse(localStorage.getItem('panier'));
+    }
+
+    var total = 0;
+    var nombre = 0;
+
+    for (item in panier) {
+        let nom = panier[item][1];
+        let quantite = panier[item][0];
+        let prix = panier[item][2]
+        nombre += quantite;
+        total += prix;
+        let itemString = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                ${nom}
+                 <span class="badge text-bg-primary rounded-pill">QTE: ${quantite}</span>
+                 <span class="badge text-bg-warning rounded-pill">Prix: $ ${prix}</span>
+            </li> `;
+
+        $('#item-list').append(itemString)
+    }
+    let itemNombre = `<li class="list-group-item d-flex justify-content-between align-items-center">
+        <b class='bg-danger'> PRIX ET QUANTITE TOTALE : </b>
+        <span class="badge text-bg-danger rounded-pill">QTE: ${nombre}</span>
+        <span class="badge text-bg-danger rounded-pill">Total $ ${total}</span>
+    </li> `;
+
+    $('#item-list').append(itemNombre)
+
+    $("#items").val(JSON.stringify(panier))
+
+    $('#total').val("$"+total);
+</script>
+{% endblock js %}

@@ -1,0 +1,210 @@
+{% extends 'shop/base.html' %}
+
+
+{% block content %}
+    <div class="row" id="banniere">
+        <div class="col" id="banniere-message">
+            <span>BabaShop</span>
+            <h2>La boutique la plus proche de vous</h2>
+            <p>Faite vos achat sans plus attendre, sans vous deplacer et economiser votre argent</p>
+        </div>
+        <div class="col" id="banniere-image"></div>
+
+    </div>
+    
+    <section class="container-fluid" id="service">
+        <div class="row" id="container-service">
+            <div class="col">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Livraison rapide</h3>
+                <p>La livraison se fait dans les 24h au plus apres la commande</p>
+            </div>
+            <div class="col">
+                <i class="fas fa-undo"></i>
+                <h3>Garantie assurer</h3>
+                <p>Tout nos produit son vendu avec garantie</p>
+            </div>
+            <div class="col">
+                <i class="fas fa-headset"></i>
+                <h3>Assistance</h3>
+                <p>Agent commercial a votre disposition 24h/24 pour tout vos besoins.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="row w-50 mt-2 mb-1">
+        <div class="col-md-12">
+            <form class="card card-sm">
+                
+                <div class="card-body row no-gutters align-itrms-center">
+                    <div class="col">
+                        <input name="item-name" placeholder="Entrer le nom du produit que vous cherchez" type="search" name="" class=" form-control form-control-borderless" id="">
+    
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-success">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for produit in produit_objet %}
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" src="{{ produit.image }}" alt="" >
+                
+                <div class="card-body bg-success-subtle  border-top border-secondary-subtle">
+                    <div id="tt{{ produit.id }}" class="card-title">{{ produit.nom }}</div>
+                    <div class="row">
+                        <div class="col-1">
+                            <strong>$</strong>
+                        </div>
+                        <div class="col">
+                            <div id="prix{{ produit.id }}" class="card-text" style="color: orange;"> {{ produit.prix }}</div>
+                        </div>
+                    </div>
+                    <a href="{{ produit.id }}" class="btn btn-warning">Voir</a>
+                    <button class="btn ted btn-success" id="{{ produit.id }}" >Ajouter</button>
+                </div>
+            </div>
+        </div>
+        {%  endfor %}
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3 offset-md-4">
+            <ul class="pagination">
+                {% if produit_objet.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link text-success" href="?page={{ produit_objet.previous_page_number }}">Precedent</a>
+                    </li>
+                {% endif %}
+
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link bg-success  ">{{ produit_objet.number }}</span>
+                    </li>
+
+                {% if produit_objet.has_next %}
+                    <li class="page-item">
+                        <a class="page-link text-success" href="?page={{ produit_objet.next_page_number }}">Suivant</a>
+                    </li>
+                {% endif %}
+
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="promot-product">
+        <hr>
+        <h3 style="text-transform: uppercase; color: var(--orange); font-weight:bold;"><span style="color: #ffc107;">Produit</span> en promotion</h3>
+        <div class="" id="contain-promot-product">
+            <div class="col-2" id="promo-image-detail">
+                <img class=" image-detail" id="image-top" src="../../static/shop/images/f-img-1.1.png">
+                <img class=" image-detail" id="image-bottom" src="../../static/shop/images/f-img-1.2.png">
+                <img class=" image-detail" id="image-left" src="../../static/shop/images/f-img-1.3.png">
+                <img class=" image-detail" id="image-right" src="../../static/shop/images/f-img-1.4.png">
+                <!-- <img class=" image-detail" id="image-top" src="../../static/shop/images/f-img-1.2.png"> -->
+            </div>
+            <div class="col-5" id="image-produit-promo">
+                <img  src="../../static/shop/images/f-img-1.1.png" >
+                
+            </div>
+            <div class="col-5" id="detail-produit-promot">
+                <h3 style="text-transform: uppercase; color: var(--orange);">Sport Aire</h3>
+                <div class="etoile">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <p style="text-align: justify;">Chaussure de sport tout terrin durable, resistante au choc et semelle solide. tres ideale pour les marraton, la marche et l,escalade</p>
+                <span>$4000</span>
+                <button class="btn ted btn-success w-50" id="{{ produit.id }}" >Ajouter</button>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript">
+
+        if(localStorage.getItem("panier") == null){
+            var panier = {}
+        }
+        else{
+            panier = JSON.parse(localStorage.getItem("panier"))
+        }
+
+        $(document).on('click', '.ted', function(){
+            var item_id = this.id.toString();
+
+            if(panier[item_id] != undefined){
+                
+                quantite = panier[item_id][0] + 1;
+                panier[item_id][0] = quantite;
+                panier[item_id][2] += parseFloat(document.getElementById("prix" + item_id).innerHTML);
+            }
+            else{
+                quantite = 1; 
+                nom = document.getElementById("tt" + item_id).innerHTML;
+                prix = parseFloat(document.getElementById("prix" + item_id).innerHTML);
+                panier[item_id] = [quantite, nom, prix]
+            }
+            console.log(panier)
+            localStorage.setItem('panier', JSON.stringify(panier));
+            document.getElementById("panierId").innerHTML = "Panier("+ Object.keys(panier).length + ")";
+            
+            
+        })
+
+
+        
+        
+            
+        afficherList(panier)
+
+        //document.getElementById("panierId").onclick = function (){
+          //  afficherList(panier)
+        //}
+
+        function afficherList(panier){
+            var panierString = "";
+            var index = 1
+            panierString += "<h5>Vos produits </h5>"
+            
+            for( var x in panier){
+                console.log(x)
+                panierString += index + " "
+                if(document.getElementById("tt" + x) != null)
+                panierString +=  document.getElementById("tt" + x).innerHTML + " Qte : " + panier[x][0] +"<br>";
+                
+                index += 1;
+            }
+            panierString += " <a class='btn btn-success' href='/validerAchat'>Acheter</a>"
+            document.getElementById("panierId").setAttribute("data-bs-content", panierString)
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+      
+
+        }
+        
+    </script>
+{% endblock js %}
+    
+
+
+
+
+
+
+
+
+
+
+    

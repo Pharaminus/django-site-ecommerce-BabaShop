@@ -1,0 +1,25 @@
+{% extends 'shop/base.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col col-md-6">
+            <div>
+                <img width="500px" height="500px" src="{{ produit.image }}" alt="" srcset="">
+            </div>
+        </div>
+        <div class="col clo-md-6">
+            <div class="text-wrning display-3">
+                {{ produit.nom }}
+            </div>
+            <div class="text-danger">
+                Prix : $ {{ produit.prix }}
+            </div>
+            <div >
+                {% lorem 200 w random %}
+            </div>
+            <a href="#"><button class="btn btn-success">Accheter</button></a>
+        </div>
+    </div>
+{% endblock content %}
+    

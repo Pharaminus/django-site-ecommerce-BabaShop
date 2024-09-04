@@ -1,0 +1,174 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+#nav-barre-block{
+    /* border-bottom: 1px solid rgb(55, 59, 56); */
+    width: 100%;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    position: fixed;
+    z-index: 9999;
+    background-color: aliceblue;
+    margin-bottom: 400px;
+    
+    
+}
+
+#navbarNavAltMarkup{
+    margin-left: 30%;
+}
+
+#navbarNavAltMarkup a{
+    margin-right: 1%;
+    margin-left: 1%;
+    color: rgb(1, 36, 22);
+    font-weight: 500;
+}
+
+/* ######################## */
+/*    style index  */
+/* ######################## */
+
+#banniere{
+    height: 450px;
+    width: 100%;
+    margin: 0;
+    padding-top: 6rem;
+    
+    /* background-color: aqua; */
+}
+
+#banniere-image{
+    background-image: url('./images/f-img-2.1.png');
+    background-repeat: no-repeat;
+}
+
+#banniere-message {
+    font-family: 'Nunito', sans-serif;
+    text-transform: capitalize;
+    transition: all .2s linear;
+    font-weight: bold;
+    color: #2c2c54;
+    
+}
+#banniere-message h3{
+    font-weight: bold;
+    font-size: 5rem;
+
+}
+#banniere-message span{
+    font-weight: bold;
+    font-size: 5rem;
+    color: #198754;
+}
+
+#banniere-message p{
+    font-weight: bold;
+    /* font-size: 5rem; */
+    color: #6e7773;
+}
+
+#service{
+    height: 200px;
+    width: 90%;
+    background-color: aliceblue;
+
+    border: solid 1px rgb(204, 202, 202);
+    border-radius: 5px;
+    padding: auto;
+}
+
+#container-service{
+    /* background-color: rgb(149, 226, 188); */
+    height: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+
+#container-service i{
+    color: #3199fa;
+    font-size: 50px;
+}
+
+/* ###### promot produit ##########  */
+
+#promot-product{
+    height: 400px;
+    width: 90%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+#contain-promot-product{
+    background-color: aliceblue;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    border: solid 1px gray;
+    border-radius: 5px;
+}
+
+
+#promo-image-detail{
+    /* background-color: #2c2c54; */
+    height: 95%;
+    padding-top: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+#promo-image-detail .image-detail{
+    /* background-color: #4f4fa3; */
+    border: 1px solid gray;
+    margin: auto  ;
+    height: 24%;
+    width: 60%;
+}
+
+
+#image-produit-promo img{
+    margin-top: 8%;
+    width: 75%;
+    height: 75%;
+}
+
+#image-produit-promo img:hover{
+    
+    width: 80%;
+    height: 80%;
+    transition-behavior: normal;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    transition-delay: 0.1s;
+    transition-property: all;
+}
+
+#detail-produit-promot{
+    /* margin: auto; */
+    padding: 5%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#detail-produit-promot h3{
+    font-weight: bold;
+    color: rgb(25 135 84);
+}
+
+#detail-produit-promot span{
+    font-weight: bold;
+    color: #ffc107;
+    font-size: 30px;
+}
+
+#detail-produit-promot i{
+    color: #ffc107;
+}
+
+
+
